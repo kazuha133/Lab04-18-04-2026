@@ -39,7 +39,6 @@
 
         #banner_logo {
             float: right;
-            
         }
 
         #banner_logo img {
@@ -430,6 +429,9 @@
         }
 
 
-        a:hover {
+        #hmenu li a:hover,
+        .categories li a:hover,
+        .pro_title a:hover,
+        .pro_cart a:hover {
             font-weight: bold;
         }
