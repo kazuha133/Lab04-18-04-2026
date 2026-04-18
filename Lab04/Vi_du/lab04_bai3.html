@@ -112,7 +112,7 @@
                     <div class="pro_box_mid">
                         <div class="pro_title">Cây Cam Ngọt Của Tôi</div>
                         <div class="pro_img"><a href="#"><img src="images/Sach_10.jpg" /></a></div>
-                        <div class="price2" >75.100</div><div class="pro_cart"><a href="#"><img src="images/layout/cart.gif" width="9" height="9" /> Đặt mua</a></div>
+                        <div class="price2" >75.100</div><div class="pro_cart"><a class="add-to-cart" href="#"><img src="images/layout/cart.gif" width="9" height="9" /> Đặt mua</a></div>
                         <div class="clear_both"></div>
                     </div>
                     <div class="pro_box_bot"></div>
@@ -122,7 +122,7 @@
                     <div class="pro_box_mid">
                         <div class="pro_title"><a href="#">Kế toán vỉa hè</a></div>
                         <div class="pro_img"><a href="#"><img src="images/book_9.png" /></a></div>
-                        <div class="price2" >110.300</div><div class="pro_cart"><a href="#"><img src="images/layout/cart.gif" width="9" height="9" /> Đặt mua</a></div>
+                        <div class="price2" >110.300</div><div class="pro_cart"><a class="add-to-cart" href="#"><img src="images/layout/cart.gif" width="9" height="9" /> Đặt mua</a></div>
                         <div class="clear_both"></div>                
                     </div>
                     <div class="pro_box_bot"></div>
@@ -133,7 +133,7 @@
                     <div class="pro_box_mid">
                         <div class="pro_title"><a href="#">Siêu nhân xe bến bánh</a></div>
                         <div class="pro_img"><a href="#"><img src="images/Sach.jpg" /></a></div>
-                        <div class="price2" >90.500</div><div class="pro_cart"><a href="#"><img src="images/layout/cart.gif" width="9" height="9" /> Đặt mua</a></div>
+                        <div class="price2" >90.500</div><div class="pro_cart"><a class="add-to-cart" href="#"><img src="images/layout/cart.gif" width="9" height="9" /> Đặt mua</a></div>
                         <div class="clear_both"></div>                
                  	</div>
                     <div class="pro_box_bot"></div>
@@ -149,7 +149,7 @@
                     <div class="pro_box_mid">
                         <div class="pro_title"><a href="#">Bán hàng ONL</a></div>
                         <div class="pro_img"><a href="#"><img src="images/Sach_4.png" /></a></div>
-                        <div class="price2" >184.000</div><div class="pro_cart"><a href="#"><img src="images/layout/cart.gif" width="9" height="9" /> Đặt mua</a></div>
+                        <div class="price2" >184.000</div><div class="pro_cart"><a class="add-to-cart" href="#"><img src="images/layout/cart.gif" width="9" height="9" /> Đặt mua</a></div>
                         <div class="clear_both"></div>
                     </div>
                     <div class="pro_box_bot"></div>
@@ -159,7 +159,7 @@
                     <div class="pro_box_mid">
                         <div class="pro_title"><a href="#">GOTH</a></div>
                         <div class="pro_img"><a href="#"><img src="images/Sach_3.jpg" /></a></div>
-                        <div class="price2" >310.000</div><div class="pro_cart"><a href="#"><img src="images/layout/cart.gif" width="9" height="9" /> Đặt mua</a></div>
+                        <div class="price2" >310.000</div><div class="pro_cart"><a class="add-to-cart" href="#"><img src="images/layout/cart.gif" width="9" height="9" /> Đặt mua</a></div>
                         <div class="clear_both"></div>                
                     </div>
                     <div class="pro_box_bot"></div>
@@ -170,7 +170,7 @@
                     <div class="pro_box_mid">
                         <div class="pro_title"><a href="#">Thế giới diệu kì</a></div>
                         <div class="pro_img"><a href="#"><img src="images/Sach_2.jpg" /></a></div>
-                        <div class="price2" >199.000</div><div class="pro_cart"><a href="#"><img src="images/layout/cart.gif" width="9" height="9" /> Đặt mua</a></div>
+                        <div class="price2" >199.000</div><div class="pro_cart"><a class="add-to-cart" href="#"><img src="images/layout/cart.gif" width="9" height="9" /> Đặt mua</a></div>
                         <div class="clear_both"></div>                
                  	</div>
                     <div class="pro_box_bot"></div>
@@ -185,7 +185,7 @@
 
                 <div id="cart">
                     <div id="cart-title">Giỏ hàng</div>
-                    <div id="cart-detail">0 sản phẩm<br />Tổng tiền: <span>0 VNĐ</span></div>
+                    <div id="cart-detail"><span id="cart-count">0</span> sản phẩm<br />Tổng tiền: <span id="cart-total">0 VNĐ</span></div>
                     <div id="cart-img"></div>
                     <div class="clear_both"></div>
                 </div>
@@ -193,8 +193,8 @@
                 <div class="title">Tìm kiếm</div>
                 <div class="box_content">
                     <div class="search-container">
-                        <input type="text" placeholder="Tìm kiếm..." />
-                        <button type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
+                        <input id="search-input" type="text" placeholder="Tìm kiếm..." />
+                        <button id="search-button" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
                     </div>
                 </div>
 
@@ -233,6 +233,87 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        (function () {
+            function normalizeText(value) {
+                return (value || "")
+                    .toLowerCase()
+                    .normalize("NFD")
+                    .replace(/[\u0300-\u036f]/g, "")
+                    .trim();
+            }
+
+            function parsePrice(value) {
+                var clean = (value || "").replace(/[^\d]/g, "");
+                return clean ? parseInt(clean, 10) : 0;
+            }
+
+            function formatVnd(value) {
+                return (value || 0).toLocaleString("vi-VN") + " VNĐ";
+            }
+
+            var productBoxes = Array.prototype.slice.call(document.querySelectorAll(".product_box"));
+            var cartCountEl = document.getElementById("cart-count");
+            var cartTotalEl = document.getElementById("cart-total");
+            var searchInput = document.getElementById("search-input");
+            var searchButton = document.getElementById("search-button");
+
+            var cartCount = 0;
+            var cartTotal = 0;
+
+            function updateCart() {
+                if (cartCountEl) {
+                    cartCountEl.textContent = String(cartCount);
+                }
+                if (cartTotalEl) {
+                    cartTotalEl.textContent = formatVnd(cartTotal);
+                }
+            }
+
+            function filterProducts() {
+                var keyword = normalizeText(searchInput ? searchInput.value : "");
+
+                productBoxes.forEach(function (box) {
+                    var titleEl = box.querySelector(".pro_title");
+                    var title = normalizeText(titleEl ? titleEl.textContent : "");
+                    var matched = !keyword || title.indexOf(keyword) !== -1;
+                    box.style.display = matched ? "" : "none";
+                });
+            }
+
+            productBoxes.forEach(function (box) {
+                var buyButton = box.querySelector(".add-to-cart");
+                if (!buyButton) {
+                    return;
+                }
+
+                buyButton.addEventListener("click", function (event) {
+                    event.preventDefault();
+
+                    var priceEl = box.querySelector(".price2");
+                    cartCount += 1;
+                    cartTotal += parsePrice(priceEl ? priceEl.textContent : "0");
+                    updateCart();
+                });
+            });
+
+            if (searchButton) {
+                searchButton.addEventListener("click", filterProducts);
+            }
+
+            if (searchInput) {
+                searchInput.addEventListener("input", filterProducts);
+                searchInput.addEventListener("keydown", function (event) {
+                    if (event.key === "Enter") {
+                        event.preventDefault();
+                        filterProducts();
+                    }
+                });
+            }
+
+            updateCart();
+        })();
+    </script>
 </body>
 
 </html>
