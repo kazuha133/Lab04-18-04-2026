@@ -84,6 +84,11 @@
             font-size: 14px;
         }
 
+        .promo-divider {
+            border: 0;
+            border-top: 1px solid #6da6b1;
+        }
+
 
         #menu {
             height: 50px;
